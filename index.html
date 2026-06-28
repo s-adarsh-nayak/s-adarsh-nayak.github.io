@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S Adarsh Nayak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d10;
+      --surface: #16161a;
+      --border:  #26262e;
+      --muted:   #52525f;
+      --body:    #aaaabc;
+      --heading: #e6e6f0;
+      --accent:  #a78bfa;
+      --accent2: #34d399;
+      --accent3: #f59e0b;
+
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--heading); }
+
+    /* ── Layout ── */
+    .container { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13,13,16,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 740px; margin: 0 auto; padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-name { font-family: var(--mono); font-size: 13px; color: var(--heading); letter-spacing: .03em; }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero { padding: 80px 0 64px; }
+
+    .hero-label {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .hero-name {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 6.5vw, 3.4rem);
+      font-weight: 500; color: var(--heading);
+      line-height: 1.12; margin-bottom: 6px;
+    }
+    .hero-name .cursor {
+    display: inline-block;
+    width: 3px;
+    height: .9em;
+    background: var(--accent);
+    margin-left: 4px;
+    position: relative;
+    top: -0.01px;      /* Adjust this value */
+    animation: blink 1s step-end infinite;
+}
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-sub {
+      font-family: var(--mono); font-size: 13px; color: var(--muted);
+      margin-bottom: 28px; letter-spacing: .04em;
+    }
+    .hero-sub span { color: var(--accent2); }
+
+    .hero-tagline {
+      font-size: 16px; color: var(--body);
+      max-width: 520px; margin-bottom: 36px; line-height: 1.75;
+    }
+    .hero-tagline strong { color: var(--heading); font-weight: 500; }
+
+    .hero-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .btn {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .05em;
+      padding: 8px 16px; border-radius: 4px;
+      border: 1px solid var(--border); color: var(--body);
+      background: var(--surface); transition: border-color .15s, color .15s;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-primary {
+      background: var(--accent); color: var(--bg);
+      border-color: var(--accent); font-weight: 500;
+    }
+    .btn-primary:hover { background: #c4b5fd; border-color: #c4b5fd; color: var(--bg); }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); }
+
+    /* ── Section ── */
+    section { padding: 56px 0; }
+    .section-label {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      letter-spacing: .14em; text-transform: uppercase; margin-bottom: 32px;
+    }
+
+    /* ── About ── */
+    .about-text { font-size: 15px; line-height: 1.8; color: var(--body); }
+    .about-text p + p { margin-top: 14px; }
+    .about-text strong { color: var(--heading); font-weight: 500; }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 20px; margin-top: 36px;
+    }
+    .skill-group h4 {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      font-family: var(--mono); font-size: 11px;
+      padding: 3px 8px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 3px; color: var(--accent2);
+    }
+    .tag.amber { color: var(--accent3); }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 32px; }
+    .exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 20px; }
+    .exp-meta { padding-top: 3px; }
+    .exp-date { font-family: var(--mono); font-size: 11px; color: var(--muted); display: block; margin-bottom: 4px; }
+    .exp-badge {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .06em;
+      padding: 2px 7px; border-radius: 3px;
+      background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.25);
+      color: var(--accent); display: inline-block;
+    }
+    .exp-role { font-size: 14px; font-weight: 500; color: var(--heading); margin-bottom: 2px; }
+    .exp-company { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 10px; }
+    .exp-bullets { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .exp-bullets li {
+      font-size: 13.5px; color: var(--body); line-height: 1.6;
+      padding-left: 16px; position: relative;
+    }
+    .exp-bullets li::before {
+      content: '–'; position: absolute; left: 0; color: var(--muted);
+    }
+
+    /* ── Projects ── */
+    .projects-list { display: flex; flex-direction: column; gap: 12px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 24px;
+      transition: border-color .15s, transform .15s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .project-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 16px; margin-bottom: 10px;
+    }
+    .project-name { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--heading); }
+    .project-links { display: flex; gap: 12px; flex-shrink: 0; }
+    .project-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .project-links a:hover { color: var(--accent); }
+    .project-desc { font-size: 13.5px; color: var(--body); margin-bottom: 14px; line-height: 1.65; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    /* ── Certs ── */
+    .certs-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 24px;
+    }
+    .cert-source {
+      font-family: var(--mono); font-size: 11px; color: var(--accent);
+      letter-spacing: .08em; margin-bottom: 12px; display: block;
+    }
+    .cert-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cert-item {
+      font-family: var(--mono); font-size: 11px; padding: 4px 10px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--body);
+    }
+
+    /* ── Contact ── */
+    .contact-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 32px;
+    }
+    .contact-title { font-family: var(--mono); font-size: 18px; color: var(--heading); margin-bottom: 8px; }
+    .contact-sub { font-size: 14px; color: var(--body); margin-bottom: 24px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ── Footer ── */
+    footer { padding: 24px 0; border-top: 1px solid var(--border); }
+    .footer-inner {
+      max-width: 740px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .footer-made { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .footer-made span { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 580px) {
+      .hero { padding: 56px 0 44px; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
+      .exp-date { padding-top: 0; }
+      .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+      .nav-links { gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; opacity: 1; }
+      .project-card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-name">s_adarsh_nayak</span>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="container">
+    <section class="hero">
+      <p class="hero-label">AI / ML Engineer</p>
+      <h1 class="hero-name">S Adarsh Nayak<span class="cursor"></span></h1>
+      <p class="hero-sub">
+        B.Tech AI/ML · PES University · Bengaluru &nbsp;|&nbsp;
+        <span>Robotics @ NewSpace R&T</span>
+      </p>
+      <p class="hero-tagline">
+        I work at the intersection of <strong>AI research, autonomous systems, and cloud-native robotics</strong> —
+building language models, Retrieval-Augmented Generation systems, computer vision pipelines, and drone autonomy
+using <strong>ROS 2, PX4, DDS, Docker, and Gazebo</strong>. I enjoy creating intelligent software that is scalable,
+reliable, and ready for deployment.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:nayakadu004@gmail.com" class="btn btn-primary">nayakadu004@gmail.com</a>
+        <a href="https://github.com/s-adarsh-nayak" target="_blank" rel="noopener" class="btn">github ↗</a>
+        <a href="https://linkedin.com/in/s-adarsh-n-50b0ba252" target="_blank" rel="noopener" class="btn">linkedin ↗</a>
+        <a href="/resume.pdf" target="_blank" class="btn">résumé ↗</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- About -->
+  <div class="container">
+    <section id="about">
+      <p class="section-label">// about</p>
+      <div class="about-text">
+        <p>
+          I'm a final-year <strong>B.Tech student in Artificial Intelligence & Machine Learning at PES University, Bangalore</strong>,
+currently interning at <strong>NewSpace Research & Technologies</strong>, where I develop autonomous drone software using
+<strong>ROS 2, PX4, DDS, Gazebo, and Docker</strong>, focusing on simulation, autonomy, distributed communication,
+and AI-driven robotic systems.
+        </p>
+        <p>
+          Before that I was a research intern at <strong>CHeal (PES University)</strong>, co-authoring
+          a paper on dyslexia detection using eye-tracking data and ML-based feature extraction.
+          My interests span <strong>Large Language Models, Retrieval-Augmented Generation (RAG), Computer Vision,
+Autonomous Robotics, Distributed Systems, and Cloud Computing</strong>. I enjoy building intelligent software that
+bridges cutting-edge AI research with scalable real-world applications.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Languages</h4>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">C / C++</span>
+            <span class="tag">Java</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>ML / AI</h4>
+          <div class="skill-tags">
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">LoRA</span>
+            <span class="tag">FAISS</span>
+            <span class="tag">YOLOv8</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Data / Big Data</h4>
+          <div class="skill-tags">
+            <span class="tag">pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">Hadoop</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">Kafka</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>DevOps / Tools</h4>
+          <div class="skill-tags">
+            <span class="tag amber">Docker</span>
+            <span class="tag amber">Kubernetes</span>
+            <span class="tag amber">ROS 2</span>
+            <span class="tag amber">Git</span>
+            <span class="tag amber">Azure</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Experience -->
+  <div class="container">
+    <section id="experience">
+      <p class="section-label">// experience</p>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <span class="exp-date">Jan 2026 – Jul 2026</span>
+            <span class="exp-badge">current</span>
+          </div>
+          <div>
+            <p class="exp-role">Robotics Intern</p>
+            <p class="exp-company">NewSpace Research &amp; Technologies · Bengaluru</p>
+            <ul class="exp-bullets">
+              <li>Developed and optimized drone flight control systems in Embedded C/C++, implementing data structures for real-time performance.</li>
+              <li>Containerized ROS 2 development environments with Docker, streamlining cross-platform deployment and isolating hardware dependencies.</li>
+              <li>Engineered high-fidelity drone simulations in Gazebo using ROS 2 and DDS middleware to validate flight behaviors before hardware deployment.</li>
+              <li>Translated pure kinematic physics models into responsive embedded applications, bridging theory and practical hardware control.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <span class="exp-date">Jun 2025 – Jul 2025</span>
+          </div>
+          <div>
+            <p class="exp-role">Research Intern</p>
+            <p class="exp-company">CHeal · PES University, Bengaluru</p>
+            <ul class="exp-bullets">
+              <li>Researched Specific Learning Disabilities (SLD) using a dyslexia-focused eye-tracking dataset to identify cognitive patterns and classify learning disorders.</li>
+              <li>Co-authored a research paper on dyslexia detection through eye movement analysis, using ML for feature extraction and model training.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <span class="exp-date">Aug 2022 – Present</span>
+          </div>
+          <div>
+            <p class="exp-role">B.Tech in AI/ML</p>
+            <p class="exp-company">PES University RR Campus · Bengaluru</p>
+            <ul class="exp-bullets">
+              <li>CGPA: 7.64 — coursework spanning machine learning, deep learning, computer vision, and distributed systems.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Projects -->
+  <div class="container">
+    <section id="projects">
+      <p class="section-label">// projects</p>
+      <div class="projects-list">
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">VidyaLM — Sanskrit Language Model with RAG</span>
+            <div class="project-links">
+              <a href="https://github.com/s-adarsh-nayak" target="_blank" rel="noopener">github ↗</a>
+            </div>
+          </div>
+          <p class="project-desc">
+            A linguistically grounded Sanskrit LLM for translation, grammatical analysis, and educational assistance. Built a RAG pipeline over 375K+ Sanskrit documents using dense embeddings and FAISS. Fine-tuned Rudra-7B with LoRA on bilingual NCERT data and integrated a Sanskrit Parser for sandhi splitting and morphological tagging.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">LoRA</span>
+            <span class="tag">FAISS</span>
+            <span class="tag">RAG</span>
+            <span class="tag">NLP</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Visual Memory Search</span>
+            <div class="project-links">
+              <a href="https://github.com/s-adarsh-nayak/Visual-Memory-Search" target="_blank" rel="noopener">github ↗</a>
+            </div>
+          </div>
+          <p class="project-desc">
+            An AI-powered screenshot search engine that retrieves images based on natural language queries. Combines YOLOv8n for object detection, Tesseract OCR for text extraction, BLIP for image captioning, and MiniLM-L6-v2 for semantic query-to-image similarity. GUI built in Tkinter with real-time indexing.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">YOLOv8n</span>
+            <span class="tag">Tesseract OCR</span>
+            <span class="tag">BLIP</span>
+            <span class="tag">MiniLM</span>
+            <span class="tag">Gemini API</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Eye-Tracking Driven Dyslexia Detection</span>
+            <div class="project-links">
+              <!-- You can add a link to the published paper or IEEE Xplore here once available -->
+              <a href="https://ieeexplore.ieee.org/document/11273667" target="_blank" rel="noopener">paper ↗</a>
+            </div>
+          </div>
+          <p class="project-desc">
+            Co-authored a research paper proposing a data-efficient machine learning approach to detect developmental dyslexia using eye-tracking biomarkers. Addressed data scarcity by synthetically augmenting the ETDD70 dataset to 210 participants . Engineered spatial and temporal features (e.g., fixation durations, saccade lengths) to train an XGBoost classifier, achieving a peak test accuracy of 92.86% and a train-test gap of only 0.0178 .
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">Data Augmentation</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">Biomedical Engineering</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Travel Recommender Microservices</span>
+            <div class="project-links">
+              <a href="https://github.com/s-adarsh-nayak" target="_blank" rel="noopener">github ↗</a>
+            </div>
+          </div>
+          <p class="project-desc">
+            A microservice-based travel recommendation system integrating train, air, and hotel services. Built REST APIs with Flask, containerized with Docker, and deployed on Kubernetes for scalability. Includes health check endpoints, service discovery, and a hotel recommendation engine based on budget and proximity.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">REST API</span>
+            <span class="tag amber">Docker</span>
+            <span class="tag amber">Kubernetes</span>
+            <span class="tag">Microservices</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Telemetry Monitoring System</span>
+            <div class="project-links">
+              <a href="https://github.com/s-adarsh-nayak/telemetry-monitoring-system" target="_blank" rel="noopener">github ↗</a>
+            </div>
+          </div>
+          <p class="project-desc">
+            A complete end-to-end telemetry and monitoring system integrating OpenTelemetry, Prometheus, Loki, Tempo, and Grafana to collect metrics, logs, and traces with actionable alerting and real-time dashboards.
+          </p>
+          <div class="project-stack">
+            <span class="tag">OpenTelemetry</span>
+            <span class="tag">Prometheus</span>
+            <span class="tag">Grafana</span>
+            <span class="tag">Loki</span>
+            <span class="tag">Tempo</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Certifications -->
+  <div class="container">
+    <section id="certs">
+      <p class="section-label">// certifications</p>
+      <div class="certs-block">
+        <span class="cert-source">Harvard Online</span>
+        <div class="cert-list">
+          <span class="cert-item">Change Management</span>
+          <span class="cert-item">Goal Setting</span>
+          <span class="cert-item">Innovation &amp; Creativity</span>
+          <span class="cert-item">Presentation Skills</span>
+          <span class="cert-item">Business Acumen</span>
+          <span class="cert-item">Strategic Thinking</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Contact -->
+  <div class="container">
+    <section id="contact">
+      <p class="section-label">// contact</p>
+      <div class="contact-block">
+        <p class="contact-title">Let's connect.</p>
+        <p class="contact-sub">
+          Open to research collaborations, internship opportunities, and interesting projects
+          in ML, robotics, or systems engineering. I read every email.
+        </p>
+        <div class="contact-links">
+          <a href="https://github.com/s-adarsh-nayak" target="_blank" rel="noopener" class="btn">github ↗</a>
+          <a href="https://linkedin.com/in/s-adarsh-n-50b0ba252" target="_blank" rel="noopener" class="btn">linkedin ↗</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 S Adarsh Nayak</span>
+      <span class="footer-made">built with <span>♥</span> &amp; CLAUDE</span>
+    </div>
+  </footer>
+
+</body>
+</html>
